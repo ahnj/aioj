@@ -1,5 +1,10 @@
 CC=gcc
-CFLAGS=-std=c89
+CFLAGS=-g -std=c89
 
-aioj: j.o
-	$(CC) -o aioj j.o
+objects = j.o
+
+aioj: $(objects)
+	$(CC) -o aioj $(objects)
+
+clean:
+	-rm aioj $(objects)
