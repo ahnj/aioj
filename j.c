@@ -3,20 +3,28 @@ pi - print integer
 nl - new line
 
 */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 typedef char C;typedef long I;
 typedef struct a{I t,r,d[3],p[2];}*A;
 #define P printf
 #define R return
 #define V1(f) A f(w)A w;
-#define V2(f) A f(a, w)A a,w;
-#define DO(n,x) {I i=0, _n=(n);for(;i<_n;++i){x;}}
-I *ma(n){R(I*)malloc(n*4);}mv(d,s,n)I *d,*s;{DO(n,d[i]=s[i]);}
+#define V2(f) A f(a,w)A a,w;
+#define DO(n,x) {I i=0,_n=(n);for(;i<_n;++i){x;}}
+I *ma(n){R (I*)malloc(n*4);}
+mv(d,s,n)I *d,*s;{DO(n,d[i]=s[i]);}
 tr(r,d)I *d;{I z=1;DO(r,z=z*d[i]);R z;}
 A ga(t,r,d)I *d;{A z=(A)ma(5+tr(r,d));z->t=t,z->r=r,mv(z->d,d,r);R z;}
 V1(iota){I n=*w->p;A z=ga(0,1,&n);DO(n,z->p[i]=i);R z;}
 V2(plus){I r=w->r,*d=w->d,n=tr(r,d);A z=ga(0,r,d);
 	DO(n,z->p[i]=a->p[i]+w->p[i]);R z;}
 V2(from){I r=w->r-1,*d=w->d+1,n=tr(r,d);
+	A z=ga(w->t,r,d);mv(z->p,w->p+(n**a->p),n);R z;}
+V1(box){A z=ga(1,0,0);*z->p=(I)w;R z;}
+V2(cat){I an=tr(a->r,a->d),wn=tr(w->r,w->d),n=an+wn;
 	A z=ga(w->t,1,&n);mv(z->p,a->p,an);mv(z->p+an,w->p,wn);R z;}
 V2(find){}
 V2(rsh){I r=a->r?*a->d:1,n=tr(r,a->p),wn=tr(w->r,w->d);
